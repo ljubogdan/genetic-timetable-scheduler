@@ -68,7 +68,7 @@ def generate_population(original_lectures):
                     lectures[random_lecture_index] = lectures[-1] 
                     lectures.pop()
 
-                    print(len(lectures), "lectures left in the list")
+                    #print(len(lectures), "lectures left in the list")
 
                     #adding random pause
                     if number_of_lectures == 0: #if minimum of lectures is satisfied
@@ -100,9 +100,47 @@ def generate_population(original_lectures):
                     classroom.append(remaining_time)
                     
                 day.append(classroom)
-            genes.append(day)   
+            genes.append(day)  
+
+        #adding remaining lectures 
+        print("remaining lectures : " + str(len(lectures)))
+        while lectures:
+            lecture = lectures[-1]
+            placed = False
+
+            for j in range(NUMBER_OF_DAYS):
+                for k in range(NUMBER_OF_CLASSROOMS):
+                    classroom = genes[j][k]
+
+                    #finding enough long pause
+                    for idx, elem in enumerate(classroom):
+                        if isinstance(elem, int):  # pause
+                            if elem >= lecture[1] + 2 * MIN_PAUSE_TIME:
+                    
+                                pause_before = MIN_PAUSE_TIME
+                                pause_after = elem - lecture[1] - MIN_PAUSE_TIME
+
+                                #change that pause
+                                classroom[idx:idx+1] = [pause_before, lecture, pause_after]
+
+                                
+                                lectures.pop()
+                                placed = True
+                                break
+                    if placed:
+                        break
+                if placed:
+                    break
+
+            if not placed:
+                raise Exception(f"Lekciju {lecture} nije moguće ubaciti!")
+        print("remaining lectures : " + str(len(lectures)))    
+
         chromosome = Chromosome(genes)
         population.append(chromosome)
 
         lectures = original_lectures[:]
+
+    
+
     return population

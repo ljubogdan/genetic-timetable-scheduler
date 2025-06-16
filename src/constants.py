@@ -1,7 +1,7 @@
 from utils import calculate_ald
 from data_handler import read_lectures
 
-POPULATION_SIZE = 50
+POPULATION_SIZE = 10
 MUTATION_RANGE = 0.05
 MAX_GENERATIONS = 500
 NUMBER_OF_DAYS = 5
