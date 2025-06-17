@@ -25,6 +25,12 @@ def genetic_algorithm(population):
     best_fitness = []
     best_chromosomes = []
 
+    # Calculate fitness for each chromosome in the initial population
+    for chromosome in population:
+        if not isinstance(chromosome, Chromosome):
+            raise TypeError("Each member of the population must be an instance of the Chromosome class.")
+        chromosome.calculate_fitness()
+
     for generation in range(MAX_GENERATIONS):
         # Sort the population by fitness in descending order
         population.sort(key=lambda x: x.fitness, reverse=True)
@@ -33,31 +39,33 @@ def genetic_algorithm(population):
         best_fitness.append(population[0].fitness)
         best_chromosomes.append(population[0])
 
-        # If the best chromosome has a fitness of 1.0, we have found a solution
-        if population[0].fitness == 1.0:
-            print(f"Solution found in generation {generation}: {population[0]}")
-            break
-
         # Create a new population using crossover and mutation
         new_population = []
         
-        for i in range(0, len(population), 2):
+        for i in range(0, len(population)//2, 1):
             parent1 = population[i]
             parent2 = population[i + 1] if i + 1 < len(population) else population[i]
 
             # Perform crossover to create two children
             child1, child2 = crossover.crossover(parent1, parent2)
+            child1.calculate_fitness()
+            child2.calculate_fitness()
 
-            # Perform mutation on the children
-            for _ in range(int(MUTATION_RANGE * len(child1.genes))):
+            # Perform mutation on the children if a random number is less than MUTATION_RANGE (0.05)
+            """
+            if random.random() < MUTATION_RANGE:
                 child1 = mutation.mutation(child1)
                 child2 = mutation.mutation(child2)
-
+            """
+            
             new_population.append(child1)
             new_population.append(child2)
 
-        # Replace the old population with the new one
         population = new_population
+
+        # Sort population again after mutation
+        population.sort(key=lambda x: x.fitness, reverse=True)
+
         print(f"Generation {generation}: Best fitness = {population[0].fitness}")
     else:
         print("Maximum generations reached without finding a solution.")    

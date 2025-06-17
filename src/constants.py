@@ -3,7 +3,7 @@ from data_handler import read_lectures
 
 POPULATION_SIZE = 100
 MUTATION_RANGE = 0.05
-MAX_GENERATIONS = 1000
+MAX_GENERATIONS = 600
 NUMBER_OF_DAYS = 5
 NUMBER_OF_CLASSROOMS = 5  
 MAX_TIME_IN_CLASSROOM = 720 #time in minutes between 07:00 - 19:00
