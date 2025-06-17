@@ -12,6 +12,7 @@ def mutation(chromosome):
     The modification is done by reorganizing gene within the same classroom
     """
 
+    """
     if not isinstance(chromosome, Chromosome):
         raise TypeError("The chromosome must be an instance of the Chromosome class.")
 
@@ -44,7 +45,9 @@ def mutation(chromosome):
         chromosome.genes[random_gene_index] = random_gene
 
     # Recalculate fitness after mutation
+    """
     chromosome.calculate_fitness()
+
     return chromosome
 
 

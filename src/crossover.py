@@ -3,6 +3,7 @@
 from chromosome import Chromosome
 from constants import CROSSOVER_ATTEMPTS
 import random
+import copy
 
 def crossover(parent1, parent2):
     # Returns two children created by crossover between two parents.
@@ -12,8 +13,8 @@ def crossover(parent1, parent2):
     if len(parent1.genes) != len(parent2.genes):
         raise ValueError("Parents must have the same number of genes for crossover.")
     
-    child1 = Chromosome(genes=parent1.genes[:])
-    child2 = Chromosome(genes=parent2.genes[:])
+    child1 = Chromosome(genes=[list(gene) for gene in parent1.genes])
+    child2 = Chromosome(genes=[list(gene) for gene in parent2.genes])
 
     # Gene example:
     """
@@ -125,8 +126,8 @@ def crossover(parent1, parent2):
             # ========== Swap ============
 
             # Create temp genes for swapping
-            temp_c1g = child1.genes[:]
-            temp_c2g = child2.genes[:]
+            temp_c1g = [list(gene) for gene in child1.genes]
+            temp_c2g = [list(gene) for gene in child2.genes]
 
             temp_c1g[index_of_dl1_classroom][index_of_dl1_lecture] = recipient_lecture1
             temp_c1g[index_of_dl2_classroom][index_of_dl2_lecture] = recipient_lecture2
@@ -149,11 +150,6 @@ def crossover(parent1, parent2):
                 temp_c2g[index_of_rl1_classroom][random_r1_time_index] -= time_difference1
 
                 if temp_c2g[index_of_rl1_classroom][random_r1_time_index] < 0:
-                    print("Negative time in recipient's classroom after crossover, skipping this attempt.")
-
-                    # revert changes
-                    temp_c1g[index_of_dl1_classroom][random_d1_time_index] -= time_difference1
-                    temp_c2g[index_of_rl1_classroom][random_r1_time_index] += time_difference1
                     continue
 
             elif time_difference1 < 0:
@@ -161,11 +157,6 @@ def crossover(parent1, parent2):
                 temp_c2g[index_of_rl1_classroom][random_r1_time_index] -= time_difference1
 
                 if temp_c1g[index_of_dl1_classroom][random_d1_time_index] < 0:
-                    print("Negative time in donor's classroom after crossover, skipping this attempt.")
-
-                    # revert changes
-                    temp_c1g[index_of_dl1_classroom][random_d1_time_index] -= time_difference1
-                    temp_c2g[index_of_rl1_classroom][random_r1_time_index] += time_difference1
                     continue
 
             if time_difference2 > 0:
@@ -173,11 +164,6 @@ def crossover(parent1, parent2):
                 temp_c2g[index_of_rl2_classroom][random_r2_time_index] -= time_difference2
 
                 if temp_c2g[index_of_rl2_classroom][random_r2_time_index] < 0:
-                    print("Negative time in recipient's classroom after crossover, skipping this attempt.")
-
-                    # revert changes
-                    temp_c1g[index_of_dl2_classroom][random_d2_time_index] -= time_difference2
-                    temp_c2g[index_of_rl2_classroom][random_r2_time_index] += time_difference2
                     continue
 
             elif time_difference2 < 0:
@@ -185,17 +171,11 @@ def crossover(parent1, parent2):
                 temp_c2g[index_of_rl2_classroom][random_r2_time_index] -= time_difference2
 
                 if temp_c1g[index_of_dl2_classroom][random_d2_time_index] < 0:
-                    print("Negative time in donor's classroom after crossover, skipping this attempt.")
-
-                    # revert changes
-                    temp_c1g[index_of_dl2_classroom][random_d2_time_index] -= time_difference2
-                    temp_c2g[index_of_rl2_classroom][random_r2_time_index] += time_difference2
                     continue
             
             # If we reach this point, we can safely assign new genes to children
             child1.genes = temp_c1g
             child2.genes = temp_c2g
-            print(f"Crossover successful on attempt {i + 1}.")
         else:
             print(f"Attempt {i + 1} failed, not all lectures found for crossover.")
     return child1, child2
