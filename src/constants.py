@@ -1,7 +1,7 @@
 from utils import calculate_ald
 from data_handler import read_lectures
 
-POPULATION_SIZE = 10
+POPULATION_SIZE = 2
 MUTATION_RANGE = 0.05
 MAX_GENERATIONS = 500
 NUMBER_OF_DAYS = 5
@@ -12,6 +12,7 @@ MIN_NUMBER_OF_LECTURES = 2
 AVERAGE_LECTURE_DURATION = int(calculate_ald(read_lectures()))
 MAX_TIME_BEFORE_FIRST_CLASS = MAX_TIME_IN_CLASSROOM - (MIN_NUMBER_OF_LECTURES * AVERAGE_LECTURE_DURATION + (MIN_NUMBER_OF_LECTURES - 1) * MIN_PAUSE_TIME)
 MAX_ATTEMPTS = 100
+CROSSOVER_ATTEMPTS = 15
                                     
                                     
                                   

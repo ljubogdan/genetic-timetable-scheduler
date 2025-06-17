@@ -103,7 +103,6 @@ def generate_population(original_lectures):
             genes.append(day)  
 
         #adding remaining lectures 
-        print("remaining lectures : " + str(len(lectures)))
         while lectures:
             lecture = lectures[-1]
             placed = False
@@ -123,7 +122,6 @@ def generate_population(original_lectures):
                                 #change that pause
                                 classroom[idx:idx+1] = [pause_before, lecture, pause_after]
 
-                                
                                 lectures.pop()
                                 placed = True
                                 break
@@ -135,12 +133,13 @@ def generate_population(original_lectures):
             if not placed:
                 raise Exception(f"Lekciju {lecture} nije moguće ubaciti!")
         print("remaining lectures : " + str(len(lectures)))    
+        
+        # Merging all list of classroms into a single list
+        new_genes = [classroom for day in genes for classroom in day]
 
-        chromosome = Chromosome(genes)
+        chromosome = Chromosome(new_genes)
         population.append(chromosome)
 
         lectures = original_lectures[:]
-
-    
 
     return population
