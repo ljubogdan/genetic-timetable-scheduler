@@ -13,6 +13,6 @@ AVERAGE_LECTURE_DURATION = int(calculate_ald(read_lectures()))
 MAX_TIME_BEFORE_FIRST_CLASS = MAX_TIME_IN_CLASSROOM - (MIN_NUMBER_OF_LECTURES * AVERAGE_LECTURE_DURATION + (MIN_NUMBER_OF_LECTURES - 1) * MIN_PAUSE_TIME)
 MAX_ATTEMPTS = 100
 CROSSOVER_ATTEMPTS = 15
-                                    
+MUTATION_ATTEMPTS = 15      
                                     
                                   

@@ -1,6 +1,7 @@
 from utils import generate_population, map_lectures
 from data_handler import read_rooms, read_lectures
 from crossover import crossover
+from mutation import mutation
 
 def main():
     rooms = read_rooms()
@@ -23,6 +24,13 @@ def main():
     print("Child 2 after crossover:")
     print(child2)
 
+    print()
+    child1.calculate_fitness()
+    print(child1.fitness)
+    mutated_child1 = mutation(child1)
+    print("Child 1 after mutation:")
+    print(mutated_child1)
+    print(mutated_child1.fitness)
     
 
 if __name__ == "__main__":
