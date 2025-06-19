@@ -10,15 +10,18 @@ class Chromosome:
     def calculate_fitness(self):
         """
         Calculate the fitness of the chromosome.
-        The fitness is calculated as the sum of all pauses at the end and the beginning of each classroom.
+        The fitness is calculated as the sum of products of all pauses at the end and the beginning of each classroom.
         """
 
         self.fitness = 0.0
+        product = 0.0
         for classroom in self.genes:
             if isinstance(classroom[0], int):
-                self.fitness += classroom[0]
+                pi = classroom[0]
             if isinstance(classroom[-1], int):
-                self.fitness += classroom[-1]
+                ki = classroom[-1]
+            product = pi * ki
+            self.fitness += product
         
         # Go through all genes throughout the chromosome
         # If there is a int value between two tuples (left and right are tuples) that is below MIN_PAUSE_TIME, deduct points

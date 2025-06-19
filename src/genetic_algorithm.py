@@ -1,7 +1,7 @@
 import crossover
 import mutation
 from chromosome import Chromosome
-from constants import MUTATION_RANGE, POPULATION_SIZE, MAX_GENERATIONS
+from constants import MUTATION_RATE, POPULATION_SIZE, MAX_GENERATIONS
 import matplotlib.pyplot as plt
 import random
 
@@ -30,70 +30,79 @@ def genetic_algorithm(population):
         if not isinstance(chromosome, Chromosome):
             raise TypeError("Each member of the population must be an instance of the Chromosome class.")
         chromosome.calculate_fitness()
+    
+    #roulette selection - choses N/2 best parents
+    
+    #random chosing pairs
+    #crossover - makes N new children
+    #now population is N/2 parents + new children
+    #again calculating fitness and chosing best accorifing to elitisam
+    
+    
 
-    for generation in range(MAX_GENERATIONS):
-        # Sort the population by fitness in descending order
-        population.sort(key=lambda x: x.fitness, reverse=True)
+    # for generation in range(MAX_GENERATIONS):
+    #     # Sort the population by fitness in descending order
+    #     population.sort(key=lambda x: x.fitness, reverse=True)
 
-        # Store the best chromosomes for plotting
-        best_fitness.append(population[0].fitness)
-        best_chromosomes.append(population[0])
+    #     # Store the best chromosomes for plotting
+    #     best_fitness.append(population[0].fitness)
+    #     best_chromosomes.append(population[0])
 
-        # Create a new population using crossover and mutation
-        new_population = []
+    #     # Create a new population using crossover and mutation
+    #     new_population = []
         
-        for i in range(0, len(population)//2, 1):
-            parent1 = population[i]
-            parent2 = population[i + 1] if i + 1 < len(population) else population[i]
+    #     for i in range(0, len(population)//2, 1):
+    #         parent1 = population[i]
+    #         parent2 = population[i + 1] if i + 1 < len(population) else population[i]
 
-            # Perform crossover to create two children
-            child1, child2 = crossover.crossover(parent1, parent2)
-            child1.calculate_fitness()
-            child2.calculate_fitness()
+    #         # Perform crossover to create two children
+    #         child1, child2 = crossover.crossover(parent1, parent2)
+    #         child1.calculate_fitness()
+    #         child2.calculate_fitness()
 
-            # Perform mutation on the children if a random number is less than MUTATION_RANGE (0.05)
-            """
-            if random.random() < MUTATION_RANGE:
-                child1 = mutation.mutation(child1)
-                child2 = mutation.mutation(child2)
-            """
+    #         # Perform mutation on the children if a random number is less than MUTATION_RANGE (0.05)
+    #         """
+    #         if random.random() < MUTATION_RANGE:
+    #             child1 = mutation.mutation(child1)
+    #             child2 = mutation.mutation(child2)
+    #         """
             
-            new_population.append(child1)
-            new_population.append(child2)
+    #         new_population.append(child1)
+    #         new_population.append(child2)
 
-        population = new_population
+    #     population = new_population
 
-        # Sort population again after mutation
-        population.sort(key=lambda x: x.fitness, reverse=True)
+    #     # Sort population again after mutation
+    #     population.sort(key=lambda x: x.fitness, reverse=True)
 
-        print(f"Generation {generation}: Best fitness = {population[0].fitness}")
-    else:
-        print("Maximum generations reached without finding a solution.")    
-    # Calculate average fitness every 10 generations
-    avg_fitness = []
-    for i in range(0, len(best_fitness), 10):
-        avg = sum(best_fitness[i:i+10]) / len(best_fitness[i:i+10])
-        avg_fitness.append(avg)
-    avg_x = list(range(9, len(best_fitness), 10))
-    if len(best_fitness) % 10 != 0:
-        avg_x.append(len(best_fitness) - 1)
+    #     print(f"Generation {generation}: Best fitness = {population[0].fitness}")
+    # else:
+    #     print("Maximum generations reached without finding a solution.")    
+    # # Calculate average fitness every 10 generations
+    # avg_fitness = []
+    # for i in range(0, len(best_fitness), 10):
+    #     avg = sum(best_fitness[i:i+10]) / len(best_fitness[i:i+10])
+    #     avg_fitness.append(avg)
+    # avg_x = list(range(9, len(best_fitness), 10))
+    # if len(best_fitness) % 10 != 0:
+    #     avg_x.append(len(best_fitness) - 1)
 
-    # Calculate the maximum fitness achieved
-    max_fitness_value = max(best_fitness) if best_fitness else 0
+    # # Calculate the maximum fitness achieved
+    # max_fitness_value = max(best_fitness) if best_fitness else 0
 
-    # Plot the fitness of the best chromosomes (blue line)
-    plt.plot(best_fitness, label='Best Fitness', color='blue')
-    # Plot the average fitness every 10 generations (red line)
-    plt.plot(avg_x, avg_fitness, label='Average Fitness (per 10)', color='red')
-    # Plot a horizontal line for the maximum fitness achieved
-    plt.axhline(y=max_fitness_value, color='green', linestyle='--', label='Max Fitness')
-    plt.xlim(left=0)
+    # # Plot the fitness of the best chromosomes (blue line)
+    # plt.plot(best_fitness, label='Best Fitness', color='blue')
+    # # Plot the average fitness every 10 generations (red line)
+    # plt.plot(avg_x, avg_fitness, label='Average Fitness (per 10)', color='red')
+    # # Plot a horizontal line for the maximum fitness achieved
+    # plt.axhline(y=max_fitness_value, color='green', linestyle='--', label='Max Fitness')
+    # plt.xlim(left=0)
 
-    plt.xlabel('Generation')
-    plt.ylabel('Fitness')
-    plt.title('Genetic Algorithm Fitness Over Generations')
-    plt.legend()
-    plt.show()
-    return best_chromosomes[0] if best_chromosomes else None
+    # plt.xlabel('Generation')
+    # plt.ylabel('Fitness')
+    # plt.title('Genetic Algorithm Fitness Over Generations')
+    # plt.legend()
+    # plt.show()
+    # return best_chromosomes[0] if best_chromosomes else None
 
     

@@ -1,8 +1,10 @@
-from utils import calculate_ald
+from helpers import calculate_ald
 from data_handler import read_lectures
 
 POPULATION_SIZE = 100
-MUTATION_RANGE = 0.05
+MUTATION_RATE = 0.1 * POPULATION_SIZE
+MUTATION_RATE_PER_CHROMOSOME = 2 # 2*2 lectures in chromosome will be rotated
+NUM_OF_LECTURES = 60
 MAX_GENERATIONS = 600
 NUMBER_OF_DAYS = 5
 NUMBER_OF_CLASSROOMS = 5  
