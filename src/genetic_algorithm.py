@@ -25,6 +25,7 @@ def genetic_algorithm(population):
     best_fitness = []
     best_chromosomes = []
 
+<<<<<<< HEAD
     # Calculate fitness for each chromosome in the initial population
     for chromosome in population:
         if not isinstance(chromosome, Chromosome):
@@ -43,11 +44,17 @@ def genetic_algorithm(population):
     # for generation in range(MAX_GENERATIONS):
     #     # Sort the population by fitness in descending order
     #     population.sort(key=lambda x: x.fitness, reverse=True)
+=======
+    for generation in range(MAX_GENERATIONS):
+        # Sort the population by fitness in descending order
+        population.sort(key=lambda x: x.fitness, reverse=True)
+>>>>>>> parent of 2c97ed8 (update)
 
     #     # Store the best chromosomes for plotting
     #     best_fitness.append(population[0].fitness)
     #     best_chromosomes.append(population[0])
 
+<<<<<<< HEAD
     #     # Create a new population using crossover and mutation
     #     new_population = []
         
@@ -86,6 +93,44 @@ def genetic_algorithm(population):
     # avg_x = list(range(9, len(best_fitness), 10))
     # if len(best_fitness) % 10 != 0:
     #     avg_x.append(len(best_fitness) - 1)
+=======
+        # If the best chromosome has a fitness of 1.0, we have found a solution
+        if population[0].fitness == 1.0:
+            print(f"Solution found in generation {generation}: {population[0]}")
+            break
+
+        # Create a new population using crossover and mutation
+        new_population = []
+        
+        for i in range(0, len(population), 2):
+            parent1 = population[i]
+            parent2 = population[i + 1] if i + 1 < len(population) else population[i]
+
+            # Perform crossover to create two children
+            child1, child2 = crossover.crossover(parent1, parent2)
+
+            # Perform mutation on the children
+            for _ in range(int(MUTATION_RANGE * len(child1.genes))):
+                child1 = mutation.mutation(child1)
+                child2 = mutation.mutation(child2)
+
+            new_population.append(child1)
+            new_population.append(child2)
+
+        # Replace the old population with the new one
+        population = new_population
+        print(f"Generation {generation}: Best fitness = {population[0].fitness}")
+    else:
+        print("Maximum generations reached without finding a solution.")    
+    # Calculate average fitness every 10 generations
+    avg_fitness = []
+    for i in range(0, len(best_fitness), 10):
+        avg = sum(best_fitness[i:i+10]) / len(best_fitness[i:i+10])
+        avg_fitness.append(avg)
+    avg_x = list(range(9, len(best_fitness), 10))
+    if len(best_fitness) % 10 != 0:
+        avg_x.append(len(best_fitness) - 1)
+>>>>>>> parent of 2c97ed8 (update)
 
     # # Calculate the maximum fitness achieved
     # max_fitness_value = max(best_fitness) if best_fitness else 0
