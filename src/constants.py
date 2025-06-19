@@ -1,16 +1,9 @@
-from helpers import calculate_ald
+from utils import calculate_ald
 from data_handler import read_lectures
 
 POPULATION_SIZE = 100
-<<<<<<< HEAD
-MUTATION_RATE = 0.1 * POPULATION_SIZE
-MUTATION_RATE_PER_CHROMOSOME = 2 # 2*2 lectures in chromosome will be rotated
-NUM_OF_LECTURES = 60
+MUTATION_RANGE = 0.1
 MAX_GENERATIONS = 600
-=======
-MUTATION_RANGE = 0.05
-MAX_GENERATIONS = 1000
->>>>>>> parent of 2c97ed8 (update)
 NUMBER_OF_DAYS = 5
 NUMBER_OF_CLASSROOMS = 5  
 MAX_TIME_IN_CLASSROOM = 720 #time in minutes between 07:00 - 19:00
@@ -22,5 +15,7 @@ MAX_ATTEMPTS = 100
 CROSSOVER_ATTEMPTS = 50
 MUTATION_ATTEMPTS = 15      
 DEDUCTED_FITNESS = 300
+NUM_OF_LECTURES = 60
+MUTATION_RATE_PER_CHROMOSOME = 2
                                     
                                   

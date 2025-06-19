@@ -11,14 +11,7 @@ def main():
 
     population = generate_population(mapped_lectures)
 
-    #genetic_algorithm(population)
-    print("HROMOZOM PRIJE MUTIRANJA")
-    print("-------------------------------------------------------")
-    print(population[0])
-    print("HROMOZOM POSLIJE MUTIRANJA")
-    print("-------------------------------------------------------")
-    mutation(population[0])
-    print(population[0])
+    genetic_algorithm(population)
 
 
 

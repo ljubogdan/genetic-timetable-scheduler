@@ -107,6 +107,8 @@ def mutation(chromosome):
         #reset
         temp = [list(gene) for gene in chromosome.genes]
 
+    return chromosome
+
 # def mutation(chromosome):
 #     """
 #     Perform mutation on a given chromosome.
@@ -114,15 +116,9 @@ def mutation(chromosome):
 #     The modification is done by reorganizing gene within the same classroom
 #     """
 
-<<<<<<< HEAD
     
 #     if not isinstance(chromosome, Chromosome):
 #         raise TypeError("The chromosome must be an instance of the Chromosome class.")
-=======
-    """
-    if not isinstance(chromosome, Chromosome):
-        raise TypeError("The chromosome must be an instance of the Chromosome class.")
->>>>>>> parent of 2c97ed8 (update)
 
 #     if not chromosome.genes:
 #         raise ValueError("The chromosome has no genes to mutate.")
@@ -152,15 +148,9 @@ def mutation(chromosome):
 #         # Update the gene in the chromosome
 #         chromosome.genes[random_gene_index] = random_gene
 
-<<<<<<< HEAD
 #     # Recalculate fitness after mutation
     
 #     chromosome.calculate_fitness()
-=======
-    # Recalculate fitness after mutation
-    """
-    chromosome.calculate_fitness()
->>>>>>> parent of 2c97ed8 (update)
 
 #     return chromosome
 

@@ -153,10 +153,9 @@ def crossover(parent1, parent2):
                     continue
 
             elif time_difference1 < 0:
-                temp_c1g[index_of_dl1_classroom][random_d1_time_index] -= time_difference1
-                temp_c2g[index_of_rl1_classroom][random_r1_time_index] += time_difference1
-                
-                #if can not be substracted from that pause
+                temp_c1g[index_of_dl1_classroom][random_d1_time_index] += time_difference1
+                temp_c2g[index_of_rl1_classroom][random_r1_time_index] -= time_difference1
+
                 if temp_c1g[index_of_dl1_classroom][random_d1_time_index] < 0:
                     continue
 
@@ -164,13 +163,12 @@ def crossover(parent1, parent2):
                 temp_c1g[index_of_dl2_classroom][random_d2_time_index] += time_difference2
                 temp_c2g[index_of_rl2_classroom][random_r2_time_index] -= time_difference2
 
-                #if can not be substracted from that pause
                 if temp_c2g[index_of_rl2_classroom][random_r2_time_index] < 0:
                     continue
 
             elif time_difference2 < 0:
-                temp_c1g[index_of_dl2_classroom][random_d2_time_index] -= time_difference2
-                temp_c2g[index_of_rl2_classroom][random_r2_time_index] += time_difference2
+                temp_c1g[index_of_dl2_classroom][random_d2_time_index] += time_difference2
+                temp_c2g[index_of_rl2_classroom][random_r2_time_index] -= time_difference2
 
                 if temp_c1g[index_of_dl2_classroom][random_d2_time_index] < 0:
                     continue

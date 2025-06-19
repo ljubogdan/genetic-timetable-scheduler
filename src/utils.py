@@ -1,8 +1,3 @@
-from chromosome import Chromosome
-from constants import *
-import random
-from data_handler import read_lectures
-
 def map_lectures(lectures):
     # mapp example: {'Lecture 1': 1, 'Lecture 2': 2, ...}
     # mapped_lectures example: [(1, 30), (2, 60), ...]
@@ -14,15 +9,13 @@ def map_lectures(lectures):
         i += 1
     return mapp, mapped_lectures 
 
-def find_lecture_duration(index):
-    lectures = read_lectures() 
-    _, mapped_lectures = map_lectures(lectures)
-    for ind, duration in mapped_lectures:
-        if ind == index:
-            return duration
+def calculate_ald(lectures): # Average Lecture Duration
+    total_duration = sum(duration for _, duration in lectures)
+    return total_duration / len(lectures) if lectures else 0
 
-
-
+from chromosome import Chromosome
+from constants import *
+import random
 
 def generate_population(original_lectures):
     lectures = original_lectures[:]
@@ -150,3 +143,10 @@ def generate_population(original_lectures):
         lectures = original_lectures[:]
 
     return population
+
+def find_lecture_duration(index):
+    lectures = read_lectures() 
+    _, mapped_lectures = map_lectures(lectures)
+    for ind, duration in mapped_lectures:
+        if ind == index:
+            return duration

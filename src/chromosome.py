@@ -10,7 +10,7 @@ class Chromosome:
     def calculate_fitness(self):
         """
         Calculate the fitness of the chromosome.
-        The fitness is calculated as the sum of products of all pauses at the end and the beginning of each classroom.
+        The fitness is calculated as the sum of all pauses at the end and the beginning of each classroom.
         """
 
         self.fitness = 0.0
@@ -31,4 +31,4 @@ class Chromosome:
             for i in range(1, len(classroom) - 1):
                 if isinstance(classroom[i], int) and classroom[i] < MIN_PAUSE_TIME:
                     # Deduct points for each pause that is less than MIN_PAUSE_TIME
-                    self.fitness -= DEDUCTED_FITNESS
+                    self.fitness -= classroom[0] * classroom[-1]
