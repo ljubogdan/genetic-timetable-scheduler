@@ -1,8 +1,10 @@
+import copy
 import crossover
 import mutation
 from chromosome import Chromosome
-from constants import MUTATION_RANGE, POPULATION_SIZE, MAX_GENERATIONS
+from constants import MUTATION_RANGE, POPULATION_SIZE, MAX_GENERATIONS, ELITISM_RATE, STAGNATION_THRESHOLD, SHAKEUP_RATIO
 import matplotlib.pyplot as plt
+from selection import rank_selection, tournament_selection
 import random
 
 def genetic_algorithm(population):
@@ -25,6 +27,10 @@ def genetic_algorithm(population):
     best_fitness = []
     best_chromosomes = []
 
+    stagnation_counter = 0                     
+    previous_best_fitness = None              
+    
+
     # Calculate fitness for each chromosome in the initial population
     for chromosome in population:
         if not isinstance(chromosome, Chromosome):
@@ -32,40 +38,75 @@ def genetic_algorithm(population):
         chromosome.calculate_fitness()
 
     for generation in range(MAX_GENERATIONS):
-        # Sort the population by fitness in descending order
+
+        population = rank_selection(population)
+        # tournament_selection_population = []
+        # for i in range(len(population) // 2):
+        #     tournament_selection_population.append(tournament_selection(population))
+
+        # population = tournament_selection_population
         population.sort(key=lambda x: x.fitness, reverse=True)
-
         # Store the best chromosomes for plotting
-        best_fitness.append(population[0].fitness)
-        best_chromosomes.append(population[0])
-
-        # Create a new population using crossover and mutation
+        best_chromosome = population[0]
+        #best_fitness.append(population[0].fitness)
+        best_fitness.append(best_chromosome.fitness)
+        #best_chromosomes.append(population[0])
+        best_chromosomes.append(best_chromosome)
+      
         new_population = []
-        
-        for i in range(0, len(population)//2, 1):
+        #elitism 
+        new_population.extend(population[:ELITISM_RATE])
+
+        #CHECK IF BEST FITNESS IN EVERY GENERATION IS REPEATED
+        #----------------------------------------------------------------
+        if best_chromosome.fitness == previous_best_fitness:
+            stagnation_counter += 1
+        else:
+            stagnation_counter = 0
+            previous_best_fitness = best_chromosome.fitness
+
+        if stagnation_counter >= STAGNATION_THRESHOLD:
+            #print(f" Stagnacija detektovana u generaciji {generation}, primenjujem 'shakeup' populacije.")
+            for i in range(ELITISM_RATE, len(population)):
+                if random.random() < SHAKEUP_RATIO:
+                    population[i] = mutation.mutation(population[i])
+                    population[i].calculate_fitness()
+                    
+            stagnation_counter = 0
+        #----------------------------------------------------------------
+
+        children = []
+        #for i in range(0, len(population)//2, 1):
+
+        #random.shuffle(population)
+        for i in range(len(population)):
             parent1 = population[i]
             parent2 = population[i + 1] if i + 1 < len(population) else population[i]
+            #parent2 = population[i + 1] if i + 1 < len(population) else random.choice(population)
 
             # Perform crossover to create two children
             child1, child2 = crossover.crossover(parent1, parent2)
             child1.calculate_fitness()
             child2.calculate_fitness()
 
-            # Perform mutation on the children if a random number is less than MUTATION_RANGE (0.05)
+            # Perform mutation on the children if a random number is less than MUTATION_RANGE
             
-            """
             if random.random() < MUTATION_RANGE:
                 child1 = mutation.mutation(child1)
+                child1.calculate_fitness()
+            if random.random() < MUTATION_RANGE:
                 child2 = mutation.mutation(child2)
-            """
-            
-            new_population.append(child1)
-            new_population.append(child2)
+                child2.calculate_fitness()
 
+            children.append(child1)
+            children.append(child2)
+        
+        new_population.extend(children[:POPULATION_SIZE - ELITISM_RATE])
         population = new_population
-
+        
         # Sort population again after mutation
         population.sort(key=lambda x: x.fitness, reverse=True)
+        #population = rank_selection(population)
 
         print(f"Generation {generation}: Best fitness = {population[0].fitness}")
     else:

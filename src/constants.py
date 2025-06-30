@@ -1,8 +1,11 @@
 from utils import calculate_ald
 from data_handler import read_lectures
 
+STAGNATION_THRESHOLD = 10                 
+SHAKEUP_RATIO = 0.9   
 POPULATION_SIZE = 100
-MUTATION_RANGE = 0.1
+MUTATION_RANGE = 0.3
+ELITISM_RATE = 10
 MAX_GENERATIONS = 600
 NUMBER_OF_DAYS = 5
 NUMBER_OF_CLASSROOMS = 5  
@@ -16,6 +19,6 @@ CROSSOVER_ATTEMPTS = 50
 MUTATION_ATTEMPTS = 15      
 DEDUCTED_FITNESS = 300
 NUM_OF_LECTURES = 60
-MUTATION_RATE_PER_CHROMOSOME = 2
+MUTATION_RATE_PER_CHROMOSOME = 6
                                     
                                   

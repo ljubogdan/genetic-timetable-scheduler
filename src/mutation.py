@@ -1,7 +1,8 @@
 # Mutation operations for genetic algorithms
+import copy
 import crossover
 from chromosome import Chromosome
-from constants import MUTATION_ATTEMPTS, NUM_OF_LECTURES, MUTATION_RATE_PER_CHROMOSOME
+from constants import MAX_ATTEMPTS, NUM_OF_LECTURES, MUTATION_RATE_PER_CHROMOSOME
 import random
 from utils import find_lecture_duration
 
@@ -9,7 +10,9 @@ def mutation(chromosome):
     counter = 0
     #create temp genes for swapping
     temp = [list(gene) for gene in chromosome.genes]
-    while counter != MUTATION_RATE_PER_CHROMOSOME:
+    #temp = copy.deepcopy(chromosome.genes)
+    max_attempts = 0
+    while counter != MUTATION_RATE_PER_CHROMOSOME and max_attempts < MAX_ATTEMPTS:  
         #successful_mutation will be 2 if both lectures can be successfully rotated
         successful_mutation = 0
         repeat_mutation = False
@@ -106,7 +109,10 @@ def mutation(chromosome):
             
         #reset
         temp = [list(gene) for gene in chromosome.genes]
+        #temp = copy.deepcopy(chromosome.genes)
+        max_attempts += 1
 
+    chromosome.calculate_fitness()
     return chromosome
 
 # def mutation(chromosome):

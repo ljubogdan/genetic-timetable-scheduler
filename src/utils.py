@@ -150,3 +150,6 @@ def find_lecture_duration(index):
     for ind, duration in mapped_lectures:
         if ind == index:
             return duration
+        
+
+    
