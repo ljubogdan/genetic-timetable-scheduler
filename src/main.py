@@ -11,9 +11,12 @@ def main():
 
     population = generate_population(mapped_lectures)
 
-    genetic_algorithm(population)
+    best_chromosome = genetic_algorithm(population)
 
+    #----------------------------------------------------------------
 
+    print("Best Chromosome:")
+    print(best_chromosome)
 
 if __name__ == "__main__":
     main()
