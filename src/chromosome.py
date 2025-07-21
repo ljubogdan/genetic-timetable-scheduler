@@ -8,11 +8,6 @@ class Chromosome:
         return str(self.genes)
     
     def calculate_fitness(self):
-        """
-        Calculate the fitness of the chromosome.
-        The fitness is calculated as the sum of all pauses at the end and the beginning of each classroom.
-        """
-
         self.fitness = 0.0
         product = 0.0
         for classroom in self.genes:

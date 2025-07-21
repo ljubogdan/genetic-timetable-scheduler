@@ -1,4 +1,4 @@
-from utils import calculate_ald
+from helpers import calculate_ald
 from data_handler import read_lectures
 
 STAGNATION_THRESHOLD = 10                 
@@ -6,7 +6,7 @@ SHAKEUP_RATIO = 0.9
 POPULATION_SIZE = 100
 MUTATION_RANGE = 0.3
 ELITISM_RATE = 10
-MAX_GENERATIONS = 600
+MAX_GENERATIONS = 500
 NUMBER_OF_DAYS = 5
 NUMBER_OF_CLASSROOMS = 5  
 MAX_TIME_IN_CLASSROOM = 720 #time in minutes between 07:00 - 19:00

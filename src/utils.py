@@ -1,3 +1,24 @@
+from chromosome import Chromosome
+from constants import *
+from helpers import calculate_ald
+import random
+
+def convert_chromosome(best_chromosome, lectures):
+    converted_chromosome = []
+    for classroom in best_chromosome.genes:
+        classroom_list = []
+        for event in classroom:
+            if isinstance(event,tuple):
+                lecture = lectures[event[0]-1][0]
+                #print (lecture)
+                classroom_list.append((lecture,event[1]))
+            else:
+                classroom_list.append(event)
+        converted_chromosome.append(classroom_list)
+    print("Best chromosome : ")
+    print(converted_chromosome)
+    return converted_chromosome
+    
 def map_lectures(lectures):
     # mapp example: {'Lecture 1': 1, 'Lecture 2': 2, ...}
     # mapped_lectures example: [(1, 30), (2, 60), ...]
@@ -9,13 +30,11 @@ def map_lectures(lectures):
         i += 1
     return mapp, mapped_lectures 
 
-def calculate_ald(lectures): # Average Lecture Duration
-    total_duration = sum(duration for _, duration in lectures)
-    return total_duration / len(lectures) if lectures else 0
+# def calculate_ald(lectures): # Average Lecture Duration
+#     total_duration = sum(duration for _, duration in lectures)
+#     return total_duration / len(lectures) if lectures else 0
 
-from chromosome import Chromosome
-from constants import *
-import random
+
 
 def generate_population(original_lectures):
     lectures = original_lectures[:]
@@ -132,7 +151,7 @@ def generate_population(original_lectures):
 
             if not placed:
                 raise Exception(f"Lekciju {lecture} nije moguće ubaciti!")
-        print("remaining lectures : " + str(len(lectures)))    
+        #print("remaining lectures : " + str(len(lectures)))    
         
         # Merging all list of classroms into a single list
         new_genes = [classroom for day in genes for classroom in day]
@@ -152,4 +171,3 @@ def find_lecture_duration(index):
             return duration
         
 
-    

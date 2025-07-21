@@ -29,7 +29,7 @@ def genetic_algorithm(population):
 
     stagnation_counter = 0                     
     previous_best_fitness = None              
-    
+    print("Finding best solution...")
 
     # Calculate fitness for each chromosome in the initial population
     for chromosome in population:
@@ -57,7 +57,7 @@ def genetic_algorithm(population):
         #elitism 
         new_population.extend(population[:ELITISM_RATE])
 
-        #CHECK IF BEST FITNESS IN EVERY GENERATION IS REPEATED
+        #check if best fitness in every generation is repeated
         #----------------------------------------------------------------
         if best_chromosome.fitness == previous_best_fitness:
             stagnation_counter += 1
@@ -106,11 +106,8 @@ def genetic_algorithm(population):
         
         # Sort population again after mutation
         population.sort(key=lambda x: x.fitness, reverse=True)
-        #population = rank_selection(population)
-
-        print(f"Generation {generation}: Best fitness = {population[0].fitness}")
-    else:
-        print("Maximum generations reached without finding a solution.")    
+        #print(f"Generation {generation}: Best fitness = {population[0].fitness}")
+      
     # Calculate average fitness every 10 generations
     avg_fitness = []
     for i in range(0, len(best_fitness), 10):
@@ -136,6 +133,8 @@ def genetic_algorithm(population):
     plt.title('Genetic Algorithm Fitness Over Generations')
     plt.legend()
     plt.show()
-    return best_chromosomes[0] if best_chromosomes else None
+    best_ever = max(best_chromosomes, key=lambda c: c.fitness)
+    return best_ever
+    
 
     
