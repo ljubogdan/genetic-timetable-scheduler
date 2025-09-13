@@ -351,15 +351,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 👥 Authors
 
-<div align="center">
-
-| **Bogdan Ljubinković** | **Andjela Broćeta** |
-|:---:|:---:|
-| 🧬 Algorithm Design | 📊 Visualization & Testing |
-| 🔧 Core Implementation | 📚 Documentation |
-| 🎯 Optimization | 🎨 UI/UX Design |
-
-</div>
+- **Bogdan Ljubinković**
+- **Andjela Broćeta**
 
 ---
 
@@ -368,15 +361,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Academic Advisors**: Faculty of Technical Sciences, Novi Sad
 - **Research Community**: Genetic Algorithm and Optimization Research Groups
 - **Open Source**: Contributors to matplotlib, numpy, and Python ecosystem
-
----
-
-## 📞 Support
-
-- **📧 Email**: [support@genetic-scheduler.com](mailto:support@genetic-scheduler.com)
-- **🐛 Issues**: [GitHub Issues](https://github.com/your-username/genetic-timetable-scheduler/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/your-username/genetic-timetable-scheduler/discussions)
-- **📖 Wiki**: [Project Wiki](https://github.com/your-username/genetic-timetable-scheduler/wiki)
 
 ---
 
