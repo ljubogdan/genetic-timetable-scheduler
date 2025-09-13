@@ -116,7 +116,7 @@ graph TB
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/genetic-timetable-scheduler.git
+git clone https://github.com/ljubogdan/genetic-timetable-scheduler.git
 cd genetic-timetable-scheduler
 
 # Install dependencies
